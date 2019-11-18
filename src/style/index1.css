@@ -1,0 +1,9 @@
+.test {
+  border-right-color: blue;
+}
+.img {
+  width: 100px;
+  height: 100px;
+  background-image: url(../images/index1.jpeg);
+  background-size: 100px 100px;
+}

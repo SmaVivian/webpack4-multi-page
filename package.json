@@ -1,0 +1,42 @@
+{
+  "name": "webpack4-multi-page",
+  "version": "1.0.0",
+  "description": "create webpack4-multi-page app",
+  "private": true,
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --progress --color --config ./build/webpack.conf.dev.js",
+    "build": "webpack --progress --color --config ./build/webpack.conf.prod.js",
+    "lint": "eslint --ext .js,.vue src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmaVivian/webpack4-multi-page.git"
+  },
+  "keywords": [
+    "webpack4",
+    "webpack4-multi-page"
+  ],
+  "author": "smaVivian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SmaVivian/webpack4-multi-page/issues"
+  },
+  "homepage": "https://github.com/SmaVivian/webpack4-multi-page#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.5",
+    "css-loader": "^3.2.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.0.0",
+    "url-loader": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
+  }
+}
