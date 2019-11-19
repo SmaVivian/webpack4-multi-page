@@ -11,44 +11,46 @@ function resolve(dir) {
 }
 
 // 获取所有html文件名的集合，用于生成入口
-const getFileNameList = (path) => {
-  let fileList = [];
-  let dirList = fs.readdirSync(path);
-  dirList.forEach(item => {
-    if (item.indexOf('html') > -1) {
-      fileList.push(item.split('.')[0]);
-    }
-  });
-  return fileList;
-};
-let htmlDirs = getFileNameList(config.htmlPath); // 所有html文件名的集合
+// const getFileNameList = (path) => {
+//   let fileList = [];
+//   let dirList = fs.readdirSync(path);
+//   dirList.forEach(item => {
+//     if (item.indexOf('html') > -1) {
+//       fileList.push(item.split('.')[0]);
+//     }
+//   });
+//   return fileList;
+// };
+// let htmlDirs = getFileNameList(config.htmlPath); // 所有html文件名的集合
 
-// 根据每个html文件来生成HTMLWebpackPlugin实例 和 入口列表
-let HTMLPlugins = [];  // 保存HTMLWebpackPlugin实例
-let Entries = {};      // 保存入口列表
+// // 根据每个html文件来生成HTMLWebpackPlugin实例 和 入口列表
+// let HTMLPlugins = [];  // 保存HTMLWebpackPlugin实例
+// let Entries = {};      // 保存入口列表
 
-htmlDirs.forEach((page) => { // 生成HTMLWebpackPlugin实例和入口列表
-  let htmlConfig = {
-    filename: `page/${page}.html`,                                 // 生成的html文件名
-    template: path.join(config.htmlPath, `./${page}.html`)    // 原文件位置
-  };
+// htmlDirs.forEach((page) => { // 生成HTMLWebpackPlugin实例和入口列表
+//   let htmlConfig = {
+//     filename: `page/${page}.html`,                                 // 生成的html文件名
+//     template: path.join(config.htmlPath, `./${page}.html`)    // 原文件位置
+//   };
 
-  let found = config.ignoreJs.findIndex((val) => { return val === page; });  // 筛选没有入口js的名
+//   let found = config.ignoreJs.findIndex((val) => { return val === page; });  // 筛选没有入口js的名
 
-  if (found === -1) {         // 有入口js文件的html，添加本页的入口js和公用js，并将入口js写入Entries中
-    htmlConfig.chunks = [page, 'default','vendors'];                               // html文件绑定入口JS和公用JS
-    Entries[page] = config.jsPath + `${page}.js`;                        // 每个HTML文件添加一个入口，除非设置不用
-  } else {                    // 没有入口js文件，chunk为空
-    htmlConfig.chunks = [];
-  }
-  HTMLPlugins.push(new HTMLWebpackPlugin(htmlConfig));
-});
+//   if (found === -1) {         // 有入口js文件的html，添加本页的入口js和公用js，并将入口js写入Entries中
+//     htmlConfig.chunks = [page, 'default','vendors'];                               // html文件绑定入口JS和公用JS
+//     Entries[page] = config.jsPath + `${page}.js`;                        // 每个HTML文件添加一个入口，除非设置不用
+//   } else {                    // 没有入口js文件，chunk为空
+//     htmlConfig.chunks = [];
+//   }
+//   HTMLPlugins.push(new HTMLWebpackPlugin(htmlConfig));
+// });
 
 module.exports = {
   context: config.projectPath,     // 入口、插件路径会基于context查找
   entry: {
     'index': resolve('../src/js/index.js'),   //index页面入口
-    'index1': resolve('../src/js/index1.js'),   //index页面入口
+    'index1': resolve('../src/js/index1.js'),   //index1页面入口
+    'list': resolve('../src/js/list/list.js'),
+    'detail': resolve('../src/js/list/detail.js'),
   },
   // entry: Entries,
   resolve: {
@@ -70,7 +72,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        include: [config.srcPath],               // 在源文件目录查询
+        // include: [config.srcPath],               // 在源文件目录查询
         // exclude: [config.assetsSubDirectory],    // 忽略第三方的任何代码
         use: [{ // 图片文件小于8k时编译成dataUrl直接嵌入页面，超过8k回退使用file-loader
           loader: 'url-loader',
@@ -95,8 +97,8 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        include: [config.srcPath],        // 在源文件目录查询
-        exclude: [config.assetsSubDirectory],    // 忽略第三方的任何代码
+        // include: [config.srcPath],        // 在源文件目录查询
+        // exclude: [config.assetsSubDirectory],    // 忽略第三方的任何代码
         use: [{ // 导入字体文件，并最打包到output.path+ options.name对应的路径中
           loader: 'url-loader',
           options: {
@@ -124,6 +126,20 @@ module.exports = {
       template:resolve('../src/page/index1.html'),//原文件模板目录
       hash:true,//是否添加hash值
       chunks:['index1'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+    }),
+    new HTMLWebpackPlugin({
+      title:'测试3',//html标题
+      filename:'./page/list/list.html',//文件目录名
+      template:resolve('../src/page/list/list.html'),//原文件模板目录
+      hash:true,//是否添加hash值
+      chunks:['list'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+    }),
+    new HTMLWebpackPlugin({
+      title:'测试4',//html标题
+      filename:'./page/list/detail.html',//文件目录名
+      template:resolve('../src/page/list/detail.html'),//原文件模板目录
+      hash:true,//是否添加hash值
+      chunks:['detail'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
 
     // ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins

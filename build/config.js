@@ -27,7 +27,7 @@ const config = {
     useEslint: false,                                                // 是否使用ESlint
     showEslintErrorsInOverlay: true,                                 // 设置为true，ESlint-loader将始终返回警告。
 
-    devSourceMap: false,                                             // 是否开启SourceMap
+    devSourceMap: true,                                             // 是否开启SourceMap
     devtool: 'eval-source-map',
 
     assetsPublicPath: '/',                                           // 相对于服务器根目录的路径，用于加载资源。

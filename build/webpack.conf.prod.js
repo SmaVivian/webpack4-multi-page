@@ -25,9 +25,22 @@ const webpackProd = { // 生产配置文件
   mode: 'production',
   module: {
     rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: extractCSS.extract([ 'css-loader' ])
+      // },
       {
         test: /\.css$/,
-        use: extractCSS.extract([ 'css-loader' ])
+        // include: [config.srcPath],
+        // exclude: [config.assetsSubDirectory],
+        use: extractCSS.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader', options: { sourceMap: config.dev.prodSourceMap } },
+            { loader: 'postcss-loader', options: { sourceMap: config.dev.prodSourceMap } },
+          ],
+          // publicPath: '../',       // 默认发布路径会是css，会拼接成css/img/x.png，所以需要重置
+        })
       },
       {
         test: /\.html$/,

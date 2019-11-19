@@ -9,30 +9,40 @@ const webpackMerge = require('webpack-merge');              // 用于合并配�
 const webpackDev = {
   module: {
     rules: [
+      // {
+      //   test: /\.css$/,
+      //   use: [ 'style-loader', 'css-loader' ]
+      // }
       {
         test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      }
+        // include: [config.srcPath],
+        // exclude: [config.assetsSubDirectory],
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { sourceMap: config.dev.devSourceMap } },
+          { loader: 'postcss-loader', options: { sourceMap: config.dev.devSourceMap } }
+        ]
+      },
     ]
   },
   mode: 'development',
   devServer:{
     contentBase: path.resolve(__dirname, '../src'), //告诉服务器从哪里提供内容, 最好设置成绝对路径
     index: 'page/index.html',  // 启动的时候，就在的页面
-    open: true,
-    openPage: 'page/index.html',  // 可以使启动后的index页的地址栏加载启动页的页面路径。
-    // port: 8080,
-    // contentBase: path.resolve(__dirname, "../release"), //本地服务器所加载的页面所在的目录
+    // open: true,
+    // openPage: 'page/index.html',  // 可以使启动后的index页的地址栏加载启动页的页面路径。
     // historyApiFallback: true, //不跳转
     // inline: true, //实时刷新
     // hot: true, // 开启热更新,
-    // //服务器代理配置项
+    port: 8080,
+    //服务器代理配置项
     // proxy: {
-    //     '/o2o/*':{
-    //         target: 'https://www.baidu.com',
-    //         secure: true,
-    //         changeOrigin: true
-    //     }
+    //   '/singleMuseum': {
+    //     target: 'http://dev.tj720.com', // 内测环境
+    //     // target: 'http://192.168.5.198:8888', // 谢少雄
+    //     ws: false,
+    //     changeOrigin: true
+    //   },
     // }
   }
 }

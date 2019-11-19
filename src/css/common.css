@@ -5,3 +5,7 @@
   border-radius: 1px;
 }
 
+.flex {
+  display: flex;
+}
+

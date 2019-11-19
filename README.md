@@ -24,3 +24,6 @@ npm install --save-dev copy-webpack-plugin
 
 `打包html中的图片, 处理html中引入的图片路径问题`
 npm install --save-dev html-loader
+
+`css前缀`
+npm install --save-dev postcss-loader autoprefixer
