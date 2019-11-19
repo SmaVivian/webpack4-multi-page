@@ -29,6 +29,12 @@ const webpackProd = { // 生产配置文件
         test: /\.css$/,
         use: extractCSS.extract([ 'css-loader' ])
       },
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'html-loader'
+        }
+      },
     ]
   },
   plugins: [

@@ -14,8 +14,8 @@ const config = {
   srcPath: utils.resolve('/src/'),                                  // 源文件目录
   node_modulesPath: utils.resolve('/node_modules/'),                // node_modules目录
 
-  htmlPath: utils.resolve('/src/'),                                 // HTML目录
-  jsPath: utils.resolve('/src/main/'),                              // JS目录
+  htmlPath: utils.resolve('/src/page/'),                                 // HTML目录
+  jsPath: utils.resolve('/src/js/'),                              // JS目录
 
   ignoreJs: ['test'],                                               // 没有入口js文件的html名
   assetsSubDirectory: utils.resolve('/src/static/'),                // 静态资源目录(不处理的第三方代码)

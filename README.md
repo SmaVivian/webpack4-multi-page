@@ -18,5 +18,9 @@ npm install --save-dev style-loader css-loader
 `它会将所有的入口 chunk(entry chunks)中引用的 *.css，移动到独立分离的 CSS 文件。`
 <!-- npm install --save-dev extract-text-webpack-plugin 不支持webpack4.0以上版本--> 
 npm install –save-dev extract-text-webpack-plugin@next
+
 `复制单个文件或整个目录建立目录。`
 npm install --save-dev copy-webpack-plugin
+
+`打包html中的图片, 处理html中引入的图片路径问题`
+npm install --save-dev html-loader

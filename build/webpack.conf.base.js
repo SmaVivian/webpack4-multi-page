@@ -5,6 +5,11 @@ const fs = require('fs');
 const config = require('./config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');  // html-webpack-plugin  用于生成html
 
+function resolve(dir) {
+  // return path.join(process.cwd(), dir)  // process.cwd()返回当前工作目录
+  return path.join(__dirname, dir)  // __dirname返回源代码所在的目录
+}
+
 // 获取所有html文件名的集合，用于生成入口
 const getFileNameList = (path) => {
   let fileList = [];
@@ -24,7 +29,7 @@ let Entries = {};      // 保存入口列表
 
 htmlDirs.forEach((page) => { // 生成HTMLWebpackPlugin实例和入口列表
   let htmlConfig = {
-    filename: `${page}.html`,                                 // 生成的html文件名
+    filename: `page/${page}.html`,                                 // 生成的html文件名
     template: path.join(config.htmlPath, `./${page}.html`)    // 原文件位置
   };
 
@@ -41,15 +46,17 @@ htmlDirs.forEach((page) => { // 生成HTMLWebpackPlugin实例和入口列表
 
 module.exports = {
   context: config.projectPath,     // 入口、插件路径会基于context查找
-  entry: Entries,
-  // resolve: {
-  //   extensions: ['.js', '.vue', '.css', '.json'],       // 自动补全的扩展名
-  //   alias: {                                            // 省略路径
-  //     // 例如 import Vue from 'vue'，会自动到 'vue/dist/vue.common.js'中寻找
-  //     // 'vue$': 'vue/dist/vue.esm.js',
-  //     // '@': resolve('src'),
-  //   }
-  // },
+  entry: {
+    'index': resolve('../src/js/index.js'),   //index页面入口
+    'index1': resolve('../src/js/index1.js'),   //index页面入口
+  },
+  // entry: Entries,
+  resolve: {
+    extensions: [".js", ".css", ".json"],  // 自动补全的扩展名
+    alias: {
+      "@": resolve('../src'),
+    }
+  },
   // 模块解析相关规则
   module: {
     rules: [
@@ -70,6 +77,9 @@ module.exports = {
           options: {
             limit: 8192, // 8k
             name: 'images/[name].[hash:7].[ext]', // 回退使用file-loader时的名称
+            publicPath: '/',  // 解决开发环境css文件引入图片路径问题
+            // publicPath: './../',  // 解决开发环境css文件引入图片路径问题
+            // outputPath: 'images/', // 生产环境
             fallback: 'file-loader',  // 当超过8192byte时，会回退使用file-loader
           }
         }]
@@ -99,6 +109,23 @@ module.exports = {
     ]
   },
   plugins: [                       // 生成HTML文件
-    ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins
+    //配置html模板，因为是多页面，所以需配置多个模板
+    new HTMLWebpackPlugin({
+      title:'测试1',//html标题
+      filename:'./page/index.html',//文件目录名
+      // template:'../src/page/index.html',//原文件模板目录
+      template:resolve('../src/page/index.html'),//原文件模板目录
+      hash:true,//是否添加hash值
+      chunks:['index'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+    }),
+    new HTMLWebpackPlugin({
+      title:'测试2',//html标题
+      filename:'./page/index1.html',//文件目录名
+      template:resolve('../src/page/index1.html'),//原文件模板目录
+      hash:true,//是否添加hash值
+      chunks:['index1'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+    }),
+
+    // ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins
   ]
 }
