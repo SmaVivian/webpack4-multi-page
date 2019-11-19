@@ -65,15 +65,13 @@ module.exports = {
       {
         test: /\.js$/,
         include: [config.srcPath],        // 在源文件目录查询
-        exclude: [config.assetsSubDirectory],
+        // exclude: [config.assetsSubDirectory], // 忽略第三方的任何代码
         use: [
           { loader: 'babel-loader' }
         ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        // include: [config.srcPath],               // 在源文件目录查询
-        // exclude: [config.assetsSubDirectory],    // 忽略第三方的任何代码
         use: [{ // 图片文件小于8k时编译成dataUrl直接嵌入页面，超过8k回退使用file-loader
           loader: 'url-loader',
           options: {
@@ -97,8 +95,6 @@ module.exports = {
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        // include: [config.srcPath],        // 在源文件目录查询
-        // exclude: [config.assetsSubDirectory],    // 忽略第三方的任何代码
         use: [{ // 导入字体文件，并最打包到output.path+ options.name对应的路径中
           loader: 'url-loader',
           options: {

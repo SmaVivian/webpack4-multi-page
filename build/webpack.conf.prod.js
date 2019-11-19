@@ -25,14 +25,8 @@ const webpackProd = { // 生产配置文件
   mode: 'production',
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: extractCSS.extract([ 'css-loader' ])
-      // },
       {
         test: /\.css$/,
-        // include: [config.srcPath],
-        // exclude: [config.assetsSubDirectory],
         use: extractCSS.extract({
           fallback: 'style-loader',
           use: [

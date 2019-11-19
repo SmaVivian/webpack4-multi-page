@@ -9,14 +9,8 @@ const webpackMerge = require('webpack-merge');              // 用于合并配�
 const webpackDev = {
   module: {
     rules: [
-      // {
-      //   test: /\.css$/,
-      //   use: [ 'style-loader', 'css-loader' ]
-      // }
       {
         test: /\.css$/,
-        // include: [config.srcPath],
-        // exclude: [config.assetsSubDirectory],
         use: [
           'style-loader',
           { loader: 'css-loader', options: { sourceMap: config.dev.devSourceMap } },
