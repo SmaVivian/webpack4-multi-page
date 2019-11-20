@@ -20,7 +20,7 @@ const webpackProd = { // 生产配置文件
   output: {
     publicPath: config.build.assetsPublicPath,         // 相对于服务器根目录的路径，用于加载资源。
     filename: 'js/[name].[chunkhash:7].bundle.js',     // 构建文件名
-    chunkFilename: 'js/[id].[chunkhash:7].js',        // 按需加载的文件名
+    // chunkFilename: 'js/[id].[chunkhash:7].js',        // 按需加载的文件名
   },
   mode: 'production',
   module: {
@@ -56,7 +56,28 @@ const webpackProd = { // 生产配置文件
     ]),
     // 清除构建的dist文件夹
     new CleanWebpackPlugin(),
-  ]
+  ],
+  // 提取第三方库
+  optimization: {
+    splitChunks: {
+      // chunks: 'all',
+      // minSize: 30000,//模块最小体积
+      // minChunks: 1,//模块最小被引用的次数
+      // maxAsyncRequests: 5,//按需加载的最大并行请求数
+      // maxInitialRequests: 3,//一个入口最大并行请求数
+      // automaticNameDelimiter: '~',//文件连接符
+      // name: true,
+      cacheGroups: {
+        jquery: {   // 抽离第三方插件
+          test: /jquery/,   // 指定是node_modules下的第三方包
+          chunks: 'initial',
+          name: 'jquery',  // 打包后的文件名，任意命名    
+          // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
+          // priority: 10    
+        },
+      }
+    }
+  }
 };
 
 module.exports = webpackMerge(webpackBase, webpackProd);

@@ -50,8 +50,8 @@ module.exports = {
   entry: {
     'index': resolve('../src/js/index.js'),   //index页面入口
     'index1': resolve('../src/js/index1.js'),   //index1页面入口
-    'list': resolve('../src/js/list/list.js'),
-    'detail': resolve('../src/js/list/detail.js'),
+    'list/list': resolve('../src/js/list/list.js'),
+    'list/detail': resolve('../src/js/list/detail.js'),
   },
   // entry: Entries,
   resolve: {
@@ -115,51 +115,36 @@ module.exports = {
       // template:'../src/page/index.html',//原文件模板目录
       template:resolve('../src/page/index.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['index','vender'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['index','jquery'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试2',//html标题
       filename:'./page/index1.html',//文件目录名
       template:resolve('../src/page/index1.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['index1','vender'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['index1','jquery'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试3',//html标题
       filename:'./page/list/list.html',//文件目录名
       template:resolve('../src/page/list/list.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['list'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['list/list'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试4',//html标题
       filename:'./page/list/detail.html',//文件目录名
       template:resolve('../src/page/list/detail.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['detail'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['list/detail'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
 
     // ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins
 
     new webpack.ProvidePlugin({
       $: 'jquery',
-      // jQuery: 'jquery'
+      // jQuery: 'jquery',
+      // 'window.jQuery': 'jquery'
     })
-  ],
-  // 提取第三方库
-  // 1、模块被重复引用或者来自node_modules中的模块
-  // 2、模块压缩前至少有30kb
-  // 3、按需（异步）请求的数量小于5个
-  // 4、初始化加载时，并行请求数量小于等于3
-  optimization:{    //优化
-      splitChunks:{
-          cacheGroups:{//缓存组，一个对象。它的作用在于，可以对不同的文件做不同的处理
-              commonjs:{
-                  name:'vender',        //输出的名字（提出来的第三方库）
-                  test: /\.js/,        //通过条件找到要提取的文件
-                  chunks:'initial'    //只对入口文件进行处理
-              }
-          }
-      }
-  }
+  ]
 }
