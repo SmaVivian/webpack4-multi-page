@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const config = require('./config.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');  // html-webpack-plugin  用于生成html
+const webpack=require('webpack');    //引入webpack模块，ProvidePlugin是webpack身上的一个插件
 
 function resolve(dir) {
   // return path.join(process.cwd(), dir)  // process.cwd()返回当前工作目录
@@ -139,5 +140,10 @@ module.exports = {
     }),
 
     // ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins
+
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      // jQuery: 'jquery'
+    })
   ]
 }
