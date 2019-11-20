@@ -16,7 +16,7 @@ npm install --save-dev babel-loader babel-core
 npm install --save-dev style-loader css-loader url-loader file-loader
 npm install --save-dev clean-webpack-plugin
 
-`它会将所有的入口 chunk(entry chunks)中引用的 *.css，移动到独立分离的 CSS 文件。`
+`它会将所有的入口 chunk(entry chunks)中引用的 *.css，移动到独立分离的 CSS 文件，以link的方式去引入css`
 <!-- npm install --save-dev extract-text-webpack-plugin 不支持webpack4.0以上版本--> 
 npm install –save-dev extract-text-webpack-plugin@next
 

@@ -115,28 +115,28 @@ module.exports = {
       // template:'../src/page/index.html',//原文件模板目录
       template:resolve('../src/page/index.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['index','jquery'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['index','jquery','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试2',//html标题
       filename:'./page/index1.html',//文件目录名
       template:resolve('../src/page/index1.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['index1','jquery'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['index1','jquery','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试3',//html标题
       filename:'./page/list/list.html',//文件目录名
       template:resolve('../src/page/list/list.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['list/list'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['list/list','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试4',//html标题
       filename:'./page/list/detail.html',//文件目录名
       template:resolve('../src/page/list/detail.html'),//原文件模板目录
       hash:true,//是否添加hash值
-      chunks:['list/detail'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
+      chunks:['list/detail','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
 
     // ...HTMLPlugins,                // 扩展运算符生成所有HTMLPlugins
@@ -146,5 +146,32 @@ module.exports = {
       // jQuery: 'jquery',
       // 'window.jQuery': 'jquery'
     })
-  ]
+  ],
+  // 优化
+  optimization: {
+    splitChunks: {
+      // chunks: 'all',
+      // minSize: 30000,//模块最小体积
+      // minChunks: 1,//模块最小被引用的次数
+      // maxAsyncRequests: 5,//按需加载的最大并行请求数
+      // maxInitialRequests: 3,//一个入口最大并行请求数
+      // automaticNameDelimiter: '~',//文件连接符
+      // name: true,
+      cacheGroups: {
+        jquery: {   // 抽离第三方插件
+          test: /jquery/,   // 指定是node_modules下的第三方包
+          chunks: 'initial',
+          name: 'jquery',  // 打包后的文件名，任意命名    
+          // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
+          priority: 10    
+        },
+        common: {   // 抽离自己写的公共代码，common这个名字可以随意起
+          chunks: 'initial',
+          name: 'common',  // 打包后的文件名，任意命名
+          minSize: 0,    // 只要超出0字节就生成一个新包 测试用 正式项目时可注释
+					minChunks: 2  // 至少引入两次
+        },
+      }
+    }
+  }
 }
