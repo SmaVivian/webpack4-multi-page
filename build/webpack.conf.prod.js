@@ -9,6 +9,8 @@ const webpackMerge = require('webpack-merge');               // 用于合并配�
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');  // 用于清除文件夹
 const CopyWebpackPlugin = require('copy-webpack-plugin');     // 用于拷贝文件
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 提取css，提取多个来源时，需要实例化多个，并用extract方法
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // 创建多个实例
 const extractCSS = new ExtractTextPlugin({
@@ -56,7 +58,17 @@ const webpackProd = { // 生产配置文件
     ]),
     // 清除构建的dist文件夹
     new CleanWebpackPlugin(),
-  ]
+  ],
+  optimization: {
+    minimizer: [ // 用于配置 minimizers 和选项
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  },
 };
 
 module.exports = webpackMerge(webpackBase, webpackProd);

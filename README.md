@@ -1,5 +1,7 @@
 ##从零构建webpack4.x多页面应用
 
+## v1.0.0
+
 初始化package.json
 npm init
 
@@ -29,3 +31,6 @@ npm install --save-dev html-loader
 
 `css前缀`
 npm install --save-dev postcss-loader autoprefixer
+
+`压缩js、css 默认清空js压缩、css没压缩`
+npm i uglifyjs-webpack-plugin optimize-css-assets-webpack-plugin -D
