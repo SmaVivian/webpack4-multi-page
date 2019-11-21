@@ -7,8 +7,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');  // html-webpack-plugi
 const webpack=require('webpack');    //引入webpack模块，ProvidePlugin是webpack身上的一个插件
 
 function resolve(dir) {
-  // return path.join(process.cwd(), dir)  // process.cwd()返回当前工作目录
-  return path.join(__dirname, dir)  // __dirname返回源代码所在的目录
+  return path.join(process.cwd(), dir)  // process.cwd()返回当前工作目录
 }
 
 // 获取所有html文件名的集合，用于生成入口
@@ -48,16 +47,16 @@ function resolve(dir) {
 module.exports = {
   context: config.projectPath,     // 入口、插件路径会基于context查找
   entry: {
-    'index': resolve('../src/js/index.js'),   //index页面入口
-    'index1': resolve('../src/js/index1.js'),   //index1页面入口
-    'list/list': resolve('../src/js/list/list.js'),
-    'list/detail': resolve('../src/js/list/detail.js'),
+    'index': resolve('./src/js/index.js'),   //index页面入口
+    'index1': resolve('./src/js/index1.js'),   //index1页面入口
+    'list/list': resolve('./src/js/list/list.js'),
+    'list/detail': resolve('./src/js/list/detail.js'),
   },
   // entry: Entries,
   resolve: {
     extensions: [".js", ".css", ".json"],  // 自动补全的扩展名
     alias: {
-      "@": resolve('../src'),
+      "@": resolve('./src'),
     }
   },
   // 模块解析相关规则
@@ -66,7 +65,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [config.srcPath],        // 在源文件目录查询
-        // exclude: [config.assetsSubDirectory], // 忽略第三方的任何代码
+        // exclude: [config.assetsSubDirectory, config.node_modulesPath], // 忽略第三方的任何代码
         use: [
           { loader: 'babel-loader' }
         ]
@@ -112,29 +111,29 @@ module.exports = {
     new HTMLWebpackPlugin({
       title:'测试1',//html标题
       filename:'./page/index.html',//文件目录名
-      // template:'../src/page/index.html',//原文件模板目录
-      template:resolve('../src/page/index.html'),//原文件模板目录
+      // template:'./src/page/index.html',//原文件模板目录
+      template:resolve('./src/page/index.html'),//原文件模板目录
       hash:true,//是否添加hash值
       chunks:['index','jquery','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试2',//html标题
       filename:'./page/index1.html',//文件目录名
-      template:resolve('../src/page/index1.html'),//原文件模板目录
+      template:resolve('./src/page/index1.html'),//原文件模板目录
       hash:true,//是否添加hash值
       chunks:['index1','jquery','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试3',//html标题
       filename:'./page/list/list.html',//文件目录名
-      template:resolve('../src/page/list/list.html'),//原文件模板目录
+      template:resolve('./src/page/list/list.html'),//原文件模板目录
       hash:true,//是否添加hash值
       chunks:['list/list','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),
     new HTMLWebpackPlugin({
       title:'测试4',//html标题
       filename:'./page/list/detail.html',//文件目录名
-      template:resolve('../src/page/list/detail.html'),//原文件模板目录
+      template:resolve('./src/page/list/detail.html'),//原文件模板目录
       hash:true,//是否添加hash值
       chunks:['list/detail','common'],//模板需要引用的js块，vendors是定义的公共块，index是引用的自己编写的块
     }),

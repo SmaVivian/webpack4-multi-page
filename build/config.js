@@ -1,49 +1,45 @@
 'use strict'
 
 const path = require('path')
-const utils = require('./utils')
 
-// function resolve(dir) {
-//   return path.join(__dirname, dir)
-// }
+function resolve(dir) {
+  return path.join(process.cwd(), dir)  // process.cwd()返回当前工作目录 即package.json所在目录 
+  // return path.join(__dirname, dir)  // __dirname返回源代码所在的目录 即build/
+}
 
 const config = {
+  projectPath: resolve('./'),                    // 项目根目录
+  buildPath: resolve('./dist/'),                 // 打包目录
+  srcPath: resolve('./src/'),                    // 源文件目录
+  node_modulesPath: resolve('./node_modules/'),  // node_modules目录
+  htmlPath: resolve('./src/page/'),              // HTML目录
+  jsPath: resolve('./src/js/'),                  // JS目录
+  assetsSubDirectory: resolve('./src/static/'),  // 静态资源目录(不处理的第三方代码)
 
-  projectPath: utils.resolve('/'),                                  // 项目根目录
-  // projectPath: path.join(__dirname, '..', '/'),
-  srcPath: utils.resolve('/src/'),                                  // 源文件目录
-  node_modulesPath: utils.resolve('/node_modules/'),                // node_modules目录
+  // dev: {
+  //   host: 'localhost',
+  //   port: '3002',
 
-  htmlPath: utils.resolve('/src/page/'),                                 // HTML目录
-  jsPath: utils.resolve('/src/js/'),                              // JS目录
+  //   useEslint: false,                                                // 是否使用ESlint
+  //   showEslintErrorsInOverlay: true,                                 // 设置为true，ESlint-loader将始终返回警告。
 
-  ignoreJs: ['test'],                                               // 没有入口js文件的html名
-  assetsSubDirectory: utils.resolve('/src/static/'),                // 静态资源目录(不处理的第三方代码)
+  //   devSourceMap: true,                                             // 是否开启SourceMap
+  //   devtool: 'eval-source-map',
 
-  dev: {
-    host: 'localhost',
-    port: '3002',
+  //   assetsPublicPath: '/',                                           // 相对于服务器根目录的路径，用于加载资源。
 
-    useEslint: false,                                                // 是否使用ESlint
-    showEslintErrorsInOverlay: true,                                 // 设置为true，ESlint-loader将始终返回警告。
+  //   proxyTable: {                                                    // proxy代理
+  //     '/api': 'http://localhost:3000'
+  //   }
+  // },
 
-    devSourceMap: true,                                             // 是否开启SourceMap
-    devtool: 'eval-source-map',
+  // build: {
+  //   prodSourceMap: false,                                             // 是否开启SourcMap
+  //   devtool: 'source-map',
 
-    assetsPublicPath: '/',                                           // 相对于服务器根目录的路径，用于加载资源。
-
-    proxyTable: {                                                    // proxy代理
-      '/api': 'http://localhost:3000'
-    }
-  },
-
-  build: {
-    prodSourceMap: false,                                             // 是否开启SourcMap
-    devtool: 'source-map',
-
-    assetsRoot: path.resolve(__dirname, '../dist'),                  // 构建根目录
-    assetsPublicPath: '/'                                            // 相对于服务器根目录的路径，用于加载构建好的资源。
-  }
+  //   assetsRoot: path.resolve(__dirname, '../dist'),                  // 构建根目录
+  //   assetsPublicPath: '/'                                            // 相对于服务器根目录的路径，用于加载构建好的资源。
+  // }
 
 }
 

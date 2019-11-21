@@ -1,7 +1,7 @@
 'use strict'
 // 生产环境配置文件
 const path = require('path');
-const webpackBase = require('./webpack.conf.base.js');     // 引入基础配置
+const webpackBase = require('./webpack.config.base.js');     // 引入基础配置
 const config = require('./config.js');                       // 引入配置
 
 const webpack = require('webpack');                          // 用于引用官方插件
@@ -20,7 +20,7 @@ const extractCSS = new ExtractTextPlugin({
 
 const webpackProd = { // 生产配置文件
   output: {
-    publicPath: config.build.assetsPublicPath,         // 相对于服务器根目录的路径，用于加载资源。
+    path: config.buildPath,  //目标输出目录 path 的绝对路径
     filename: 'js/[name].[chunkhash:7].bundle.js',     // 构建文件名
     // chunkFilename: 'js/[id].[chunkhash:7].js',        // 按需加载的文件名
   },
@@ -32,8 +32,8 @@ const webpackProd = { // 生产配置文件
         use: extractCSS.extract({
           fallback: 'style-loader',
           use: [
-            { loader: 'css-loader', options: { sourceMap: config.dev.prodSourceMap } },
-            { loader: 'postcss-loader', options: { sourceMap: config.dev.prodSourceMap } },
+            { loader: 'css-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader' },
           ],
           // publicPath: '../',       // 默认发布路径会是css，会拼接成css/img/x.png，所以需要重置
         })

@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path');
-const webpackBase = require('./webpack.conf.base.js');    // 引入基础配置
+const webpackBase = require('./webpack.config.base.js');    // 引入基础配置
 const config = require('./config.js');                      // 引入配置
 
 const webpack = require('webpack');                         // 用于引用官方插件
@@ -13,8 +13,8 @@ const webpackDev = {
         test: /\.css$/,
         use: [
           'style-loader',
-          { loader: 'css-loader', options: { sourceMap: config.dev.devSourceMap } },
-          { loader: 'postcss-loader', options: { sourceMap: config.dev.devSourceMap } }
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'postcss-loader' }
         ]
       },
     ]
