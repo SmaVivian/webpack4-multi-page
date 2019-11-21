@@ -63,12 +63,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        // test: /\.js$/,
+        test: /\.m?js$/,
         include: [config.srcPath],        // 在源文件目录查询
-        // exclude: [config.assetsSubDirectory, config.node_modulesPath], // 忽略第三方的任何代码
-        use: [
-          { loader: 'babel-loader' }
-        ]
+        exclude: [config.assetsSubDirectory, config.node_modulesPath], // 忽略第三方的任何代码
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -82,16 +87,17 @@ module.exports = {
             // outputPath: 'images/', // 生产环境
             fallback: 'file-loader',  // 当超过8192byte时，会回退使用file-loader
           }
+          // 文件夹的方式 打包后有问题
+          // options: {
+          //   limit: 8192, // 8k
+          //   name: '[path][name].[hash:7].[ext]', // 回退使用file-loader时的名称
+          //   context: 'src/',
+          //   publicPath: '../',  // 解决开发环境css文件引入图片路径问题
+          //   // publicPath: './../',  // 解决开发环境css文件引入图片路径问题
+          //   // outputPath: '/', // 生产环境文件夹
+          //   fallback: 'file-loader',  // 当超过8192byte时，会回退使用file-loader
+          // }
         }]
-      },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 8192,
-          name: 'media/[name].[hash:7].[ext]',
-          fallback: 'file-loader',
-        }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -100,6 +106,7 @@ module.exports = {
           options: {
             limit: 8192,
             name: 'fonts/[name].[hash:7].[ext]',
+            publicPath: '/',
             fallback: 'file-loader',
           }
         }]

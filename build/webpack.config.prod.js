@@ -38,10 +38,11 @@ const webpackProd = { // 生产配置文件
           // publicPath: '../',       // 默认发布路径会是css，会拼接成css/img/x.png，所以需要重置
         })
       },
+      // 处理html中引入的图片路径问题
       {
         test: /\.html$/,
         use: {
-          loader: 'html-loader'
+          loader: 'html-loader',
         }
       },
     ]
@@ -52,7 +53,7 @@ const webpackProd = { // 生产配置文件
     new CopyWebpackPlugin([
       {
         from: config.assetsSubDirectory,
-        to: '../dist/static',
+        to: config.buildPath + 'static',
         ignore: ['.*']
       }
     ]),

@@ -14,9 +14,13 @@ npm install --save-dev webpack-cli
 
 npm install --save-dev webpack-merge url-loader
 npm install --save-dev html-webpack-plugin 
-npm install --save-dev babel-loader babel-core
+
 npm install --save-dev style-loader css-loader url-loader file-loader
 npm install --save-dev clean-webpack-plugin
+
+`翻译 js 文件及包括es6->es5、处理兼容等`
+npm install -D babel-loader @babel/core @babel/preset-env @babel/plugin-transform-runtime
+新建.babelrc文件
 
 `它会将所有的入口 chunk(entry chunks)中引用的 *.css，移动到独立分离的 CSS 文件，以link的方式去引入css`
 <!-- npm install --save-dev extract-text-webpack-plugin 不支持webpack4.0以上版本--> 
@@ -24,7 +28,6 @@ npm install –save-dev extract-text-webpack-plugin@next
 
 `复制单个文件或整个目录建立目录。`
 npm install --save-dev copy-webpack-plugin
-
 
 `打包html中的图片, 处理html中引入的图片路径问题`
 npm install --save-dev html-loader
