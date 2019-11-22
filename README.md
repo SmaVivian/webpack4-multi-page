@@ -24,22 +24,44 @@
 |   |-- webpack.config.dev.js
 |   |-- webpack.config.js
 |   `-- webpack.config.prod.js
-|-- dist
-|   |-- css
-|   |-- images
-|   |-- js
-|   |-- page
-|   `-- static
 |-- package.json
 |-- postcss.config.js
 |-- src
 |   |-- common
+|   |   `-- util.js
 |   |-- css
+|   |   |-- common.css
+|   |   |-- index.css
+|   |   |-- index1.css
+|   |   `-- list
 |   |-- images
+|   |   |-- a
+|   |   |-- b
+|   |   `-- index1.jpeg
 |   |-- js
+|   |   |-- index.js
+|   |   |-- index1.js
+|   |   `-- list
 |   |-- page
+|   |   |-- index.html
+|   |   |-- index1.html
+|   |   `-- list
 |   `-- static
+|       |-- images
+|       `-- json
 ```
+
+## 安装依赖
+
+npm i
+
+## 项目启动
+
+npm run dev
+
+## 项目打包
+
+npm run build
 
 
 
