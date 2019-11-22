@@ -1,0 +1,45 @@
+.
+|-- README.md
+|-- build
+|   |-- config.js
+|   |-- webpack.config.base.js
+|   |-- webpack.config.dev.js
+|   |-- webpack.config.js
+|   `-- webpack.config.prod.js
+|-- package.json
+|-- postcss.config.js
+|-- src
+|   |-- common
+|   |   `-- util.js
+|   |-- css
+|   |   |-- common.css
+|   |   |-- index.css
+|   |   |-- index1.css
+|   |   `-- list
+|   |       `-- list.css
+|   |-- images
+|   |   |-- a
+|   |   |   `-- a.jpg
+|   |   |-- b
+|   |   |   `-- b.png
+|   |   `-- index1.jpeg
+|   |-- js
+|   |   |-- index.js
+|   |   |-- index1.js
+|   |   `-- list
+|   |       |-- detail.js
+|   |       `-- list.js
+|   |-- page
+|   |   |-- index.html
+|   |   |-- index1.html
+|   |   `-- list
+|   |       |-- detail.html
+|   |       `-- list.html
+|   `-- static
+|       |-- images
+|       |   `-- index.jpeg
+|       `-- json
+|           `-- test.json
+`-- tree.text
+
+15 directories, 27 files

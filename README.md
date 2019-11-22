@@ -34,21 +34,30 @@
 |   |   |-- index.css
 |   |   |-- index1.css
 |   |   `-- list
+|   |       `-- list.css
 |   |-- images
 |   |   |-- a
+|   |   |   `-- a.jpg
 |   |   |-- b
+|   |   |   `-- b.png
 |   |   `-- index1.jpeg
 |   |-- js
 |   |   |-- index.js
 |   |   |-- index1.js
 |   |   `-- list
+|   |       |-- detail.js
+|   |       `-- list.js
 |   |-- page
 |   |   |-- index.html
 |   |   |-- index1.html
 |   |   `-- list
+|   |       |-- detail.html
+|   |       `-- list.html
 |   `-- static
 |       |-- images
+|       |   `-- index.jpeg
 |       `-- json
+|           `-- test.json
 ```
 
 ## 安装依赖
