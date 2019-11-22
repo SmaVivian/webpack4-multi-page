@@ -23,8 +23,8 @@ const config = {
       // open: true,
       // openPage: 'page/index.html',  // 可以使启动后的index页的地址栏加载启动页的页面路径。
       // historyApiFallback: true, //不跳转
-      // inline: true, //实时刷新
-      // hot: true, // 开启热更新,
+      inline: true, //实时刷新
+      hot: true, // 开启热更新,
       port: 8080,
       //服务器代理配置项
       // proxy: {

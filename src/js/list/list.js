@@ -1,4 +1,5 @@
 import '@/css/common.css'
+import '@/css/list/list.css'
 
 import '@/common/util'
 
