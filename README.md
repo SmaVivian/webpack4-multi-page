@@ -66,7 +66,7 @@ npm i
 
 ## 项目启动
 
-npm run dev
+npm run serve
 
 ## 项目打包
 
